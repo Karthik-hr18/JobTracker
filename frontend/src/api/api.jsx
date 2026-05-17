@@ -1,7 +1,13 @@
 import axios from "axios";
 
+const getBaseURL = () => {
+    const url = import.meta.env.VITE_API_URL;
+    if (!url) return "http://localhost:7000/api";
+    return url.endsWith("/api") ? url : `${url.replace(/\/$/, "")}/api`;
+};
+
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || "http://localhost:7000/api",
+    baseURL: getBaseURL(),
 });
 
 // Automatically attach the JWT token to every request
