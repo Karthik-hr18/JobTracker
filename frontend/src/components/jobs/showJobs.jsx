@@ -280,7 +280,7 @@ function Dashboard() {
           Loading your applications...
         </div>
       ) : jobs.length === 0 ? (
-        totalJobs === 0 ? (
+        (!searchQuery && !locationFilter && !statusFilter) ? (
           /* Empty state - No applications whatsoever in database */
           <div className="flex flex-col items-center justify-center py-16 px-6 rounded-2xl border-2 border-dashed border-slate-200 bg-gradient-to-b from-slate-50 to-white">
             <div className="w-14 h-14 rounded-2xl bg-violet-50 border border-violet-100 flex items-center justify-center text-2xl mb-4"
