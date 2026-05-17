@@ -38,8 +38,10 @@ function Dashboard() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearchQuery, setDebouncedSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [locationFilter, setLocationFilter] = useState("");
+  const [debouncedLocationFilter, setDebouncedLocationFilter] = useState("");
   const [sortType, setSortType] = useState("");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -49,13 +51,44 @@ function Dashboard() {
   const limit = 10;
   const navigate = useNavigate();
 
-  useEffect(() => { fetchjobs(page); }, [page, statusFilter, locationFilter, sortType]);
+  // Debounce search query
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearchQuery(searchQuery);
+    }, 300);
+    return () => clearTimeout(handler);
+  }, [searchQuery]);
+
+  // Debounce location query
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedLocationFilter(locationFilter);
+    }, 300);
+    return () => clearTimeout(handler);
+  }, [locationFilter]);
+
+  // Reset to page 1 whenever any search or filter criteria changes
+  useEffect(() => {
+    setPage(1);
+  }, [debouncedSearchQuery, statusFilter, debouncedLocationFilter, sortType]);
+
+  // Fetch jobs whenever page or any filter criteria changes
+  useEffect(() => {
+    fetchjobs(page);
+  }, [page, debouncedSearchQuery, statusFilter, debouncedLocationFilter, sortType]);
 
   const fetchjobs = async (currentPage) => {
     setLoading(true);
     try {
       const response = await api.get('/jobs/getAll', {
-        params: { page: currentPage, limit, search: searchQuery, status: statusFilter, location: locationFilter, sort: sortType }
+        params: {
+          page: currentPage,
+          limit,
+          search: debouncedSearchQuery,
+          status: statusFilter,
+          location: debouncedLocationFilter,
+          sort: sortType
+        }
       });
       setJobs(response.data.data.jobs);
       setTotalPages(response.data.data.totalPages);
@@ -76,7 +109,10 @@ function Dashboard() {
     }
   };
 
-  const handleSearch = (e) => { e.preventDefault(); setPage(1); fetchjobs(1); };
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setPage(1);
+  };
   const handlePageChange = (newPage) => { if (newPage >= 1 && newPage <= totalPages) setPage(newPage); };
 
   const deleteJob = async (jobId) => {
@@ -244,24 +280,63 @@ function Dashboard() {
           Loading your applications...
         </div>
       ) : jobs.length === 0 ? (
-        /* Empty state */
-        <div className="flex flex-col items-center justify-center py-16 px-6 rounded-2xl border-2 border-dashed border-slate-200 bg-gradient-to-b from-slate-50 to-white">
-          <div className="w-14 h-14 rounded-2xl bg-violet-50 border border-violet-100 flex items-center justify-center text-2xl mb-4"
-               style={{ boxShadow: "0 2px 8px rgba(109,99,255,0.15)" }}>
-            📋
+        totalJobs === 0 ? (
+          /* Empty state - No applications whatsoever in database */
+          <div className="flex flex-col items-center justify-center py-16 px-6 rounded-2xl border-2 border-dashed border-slate-200 bg-gradient-to-b from-slate-50 to-white">
+            <div className="w-14 h-14 rounded-2xl bg-violet-50 border border-violet-100 flex items-center justify-center text-2xl mb-4"
+                 style={{ boxShadow: "0 2px 8px rgba(109,99,255,0.15)" }}>
+              📋
+            </div>
+            <h3 className="font-semibold text-slate-800 text-base mb-1">No applications yet</h3>
+            <p className="text-slate-500 text-sm text-center max-w-xs mb-5">
+              Start tracking your job search by adding your first application
+            </p>
+            <button
+              onClick={() => navigate("/createJob")}
+              className="inline-flex items-center gap-2.5 px-5 py-2.5 text-white text-sm font-semibold rounded-xl transition-all duration-200"
+              style={{ background: "linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)", boxShadow: "0 2px 8px rgba(109,99,255,0.35)" }}
+            >
+              <span>+</span> Add First Application
+            </button>
           </div>
-          <h3 className="font-semibold text-slate-800 text-base mb-1">No applications yet</h3>
-          <p className="text-slate-500 text-sm text-center max-w-xs mb-5">
-            Start tracking your job search by adding your first application
-          </p>
-          <button
-            onClick={() => navigate("/createJob")}
-            className="inline-flex items-center gap-2.5 px-5 py-2.5 text-white text-sm font-semibold rounded-xl transition-all duration-200"
-            style={{ background: "linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%)", boxShadow: "0 2px 8px rgba(109,99,255,0.35)" }}
-          >
-            <span>+</span> Add First Application
-          </button>
-        </div>
+        ) : (
+          /* Empty state - Has applications but filter/search returned zero matches */
+          <div className="flex flex-col items-center justify-center py-16 px-6 rounded-2xl border-2 border-dashed border-slate-200 bg-gradient-to-b from-slate-50 to-white">
+            <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-100 flex items-center justify-center text-2xl mb-4"
+                 style={{ boxShadow: "0 2px 8px rgba(245,158,11,0.15)" }}>
+              🔍
+            </div>
+            <h3 className="font-semibold text-slate-800 text-base mb-1">No matches found</h3>
+            <p className="text-slate-500 text-sm text-center max-w-md mb-5">
+              We couldn't find any applications matching
+              {searchQuery && <span className="font-semibold text-slate-700"> "{searchQuery}"</span>}
+              {locationFilter && (
+                <>
+                  {searchQuery && " in"}
+                  <span className="font-semibold text-slate-700"> location "{locationFilter}"</span>
+                </>
+              )}
+              {statusFilter && (
+                <>
+                  {(searchQuery || locationFilter) && " with status"}
+                  <span className="font-semibold text-slate-700"> "{statusFilter}"</span>
+                </>
+              )}
+              {!searchQuery && !locationFilter && !statusFilter && " your current filter selections"}.
+            </p>
+            <button
+              onClick={() => {
+                setSearchQuery("");
+                setLocationFilter("");
+                setStatusFilter("");
+                setSortType("");
+              }}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-xl transition-all duration-150"
+            >
+              Clear Search & Filters
+            </button>
+          </div>
+        )
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
           <AnimatePresence>

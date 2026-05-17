@@ -30,16 +30,6 @@ function Navbar({ isLoggedIn, setIsLoggedIn }) {
       {/* Spacer for mobile burger button (64px) */}
       <div className="w-8 md:hidden shrink-0" />
 
-      {/* Search */}
-      <div className="relative flex-1 max-w-sm hidden sm:block">
-        <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-        <input
-          type="text"
-          placeholder="Search..."
-          className="w-full bg-gray-100/60 border border-transparent focus:bg-white focus:border-gray-200 focus:ring-2 focus:ring-gray-100 rounded-lg pl-9 pr-4 py-1.5 text-[13px] text-gray-900 placeholder:text-gray-400 transition-all outline-none"
-        />
-      </div>
-
       <div className="flex items-center gap-2 ml-auto">
         {/* Notification bell */}
         <button className="relative p-2 text-gray-500 hover:text-gray-900 hover:bg-gray-100 rounded-full transition-colors hidden sm:flex">
