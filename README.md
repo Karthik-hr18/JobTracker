@@ -1,6 +1,6 @@
 # 💼 JobTracker
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Coming%20Soon-lightgrey?style=for-the-badge&logo=vercel&logoColor=white)]()
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Click%20Here-success?style=for-the-badge&logo=vercel&logoColor=white)](https://job-tracker-git-master-karthik-hr18s-projects.vercel.app/)
 
 > **A full-featured, production-grade Job Application Tracking System** built with the MERN stack. Manage your entire job hunt from first application to final offer — all in one place.
 

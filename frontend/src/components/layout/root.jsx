@@ -33,14 +33,14 @@ const Home = () => {
             <div className="flex items-center gap-3">
               <Link
                 to="/userLogin"
-                className="btn-secondary-modern"
+                className="px-4 py-2 text-sm font-semibold text-slate-700 hover:text-violet-600 hover:bg-slate-50 rounded-xl transition-all duration-150"
               >
                 Login
               </Link>
 
               <Link
                 to="/userRegister"
-                className="btn-primary-modern"
+                className="px-4.5 py-2 text-sm font-semibold text-white bg-violet-600 hover:bg-violet-700 rounded-xl shadow-md shadow-violet-100 transition-all duration-150 active:scale-95"
               >
                 Get Started
               </Link>
@@ -57,17 +57,16 @@ const Home = () => {
 
           <div className="max-w-4xl mx-auto text-center">
 
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-200 bg-white shadow-sm mb-8">
-              <Star size={14} className="text-amber-500 fill-amber-500" />
-
-              <span className="text-sm font-medium text-gray-700">
-                Modern AI-powered Job Tracking Platform
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-violet-100 bg-violet-50/40 backdrop-blur-md shadow-sm mb-8">
+              <Star size={13} className="text-violet-600 fill-violet-600" />
+              <span className="text-[13px] font-semibold text-violet-700">
+                Next-Gen Job Application Tracker
               </span>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
+            <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight text-slate-900">
               Organize Your
-              <span className="block text-gray-400">
+              <span className="block mt-2 bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
                 Job Search Smarter
               </span>
             </h1>
@@ -81,15 +80,15 @@ const Home = () => {
 
               <Link
                 to="/userRegister"
-                className="btn-primary-modern text-base px-6 py-3"
+                className="px-6 py-3.5 text-base font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 rounded-2xl shadow-lg shadow-violet-100 inline-flex items-center gap-2 transition-all duration-200 active:scale-95 hover:-translate-y-0.5"
               >
                 Start Tracking
-                <ArrowRight size={18} />
+                <ArrowRight size={18} className="text-white" />
               </Link>
 
               <Link
                 to="/userLogin"
-                className="btn-secondary-modern text-base px-6 py-3"
+                className="px-6 py-3.5 text-base font-semibold text-slate-700 bg-white border border-slate-200 hover:border-slate-300 rounded-2xl shadow-sm hover:shadow-md inline-flex items-center justify-center transition-all duration-200 active:scale-95 hover:-translate-y-0.5"
               >
                 View Dashboard
               </Link>

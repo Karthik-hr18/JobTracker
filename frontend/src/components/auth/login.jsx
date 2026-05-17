@@ -48,6 +48,9 @@ const Login = ({ setIsLoggedIn }) => {
             <div className="w-full lg:w-1/2 flex items-center justify-center p-8 sm:p-12 md:p-16">
                 <motion.div className="w-full max-w-md bg-white p-8 sm:p-10 rounded-2xl shadow-sm border border-gray-100" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
                     <div className="mb-10 text-center sm:text-left">
+                        <Link to="/" className="inline-flex items-center gap-1 text-[13px] font-semibold text-violet-600 hover:text-violet-700 mb-4 transition-colors">
+                            ← Back to Home
+                        </Link>
                         <h2 className="text-3xl font-bold text-gray-900 mb-2 tracking-tight">Welcome back</h2>
                         <p className="text-gray-500 text-[15px]">Enter your details to sign in to your account.</p>
                     </div>
