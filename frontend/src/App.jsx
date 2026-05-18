@@ -13,6 +13,7 @@ import Sidebar from "./components/layout/sideBar.jsx";
 import ProfileSection from "./components/layout/profileSection.jsx";
 import UpdateUser from "./components/layout/updateProfile.jsx";
 import Home from "./components/layout/root.jsx";
+import ComingSoon from "./components/layout/ComingSoon.jsx";
 
 
 
@@ -77,6 +78,10 @@ const route = (isLoggedIn, setIsLoggedIn) => createBrowserRouter([
       {
         path: "updateJob/:id",
         element: <UpdateJob />,
+      },
+      {
+        path: "coming-soon",
+        element: <ComingSoon />,
       },
       {
         path: "*",

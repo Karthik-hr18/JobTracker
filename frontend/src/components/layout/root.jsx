@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import {
   Briefcase,
   Search,
@@ -72,10 +73,45 @@ const Home = () => {
               </span>
             </h1>
 
-            <p className="mt-8 text-lg md:text-xl text-gray-500 leading-relaxed max-w-2xl mx-auto">
-              Track applications, manage interviews, organize opportunities,
-              and land your dream job with a clean modern dashboard built for productivity.
+            <p className="mt-6 text-base md:text-lg text-slate-500 font-medium max-w-2xl mx-auto leading-relaxed">
+              Your comprehensive command center to navigate your career growth, built for maximum speed and simplicity.
             </p>
+
+            {/* Step-by-Step Premium Value Proposition */}
+            <div className="mt-12 mb-4 max-w-4xl mx-auto">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
+                {[
+                  { step: "01", title: "Track", desc: "Applications instantly", color: "from-violet-500 to-indigo-500", glow: "rgba(108,99,255,0.15)" },
+                  { step: "02", title: "Manage", desc: "Interviews seamlessly", color: "from-fuchsia-500 to-pink-500", glow: "rgba(217,70,239,0.15)" },
+                  { step: "03", title: "Organize", desc: "Offers & details", color: "from-blue-500 to-cyan-500", glow: "rgba(59,130,246,0.15)" },
+                  { step: "04", title: "Land", desc: "Your dream career", color: "from-emerald-500 to-teal-500", glow: "rgba(16,185,129,0.15)" },
+                ].map((item, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 * idx, duration: 0.4 }}
+                    className="p-5 rounded-2xl bg-white border border-slate-200/60 shadow-[0_4px_20px_rgba(0,0,0,0.015)] relative overflow-hidden group hover:border-violet-200 transition-all duration-300 hover:shadow-[0_8px_30px_rgba(109,99,255,0.05)] hover:-translate-y-1"
+                  >
+                    {/* Glow background indicator on hover */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style={{ background: `radial-gradient(circle at 100% 0%, ${item.glow} 0%, transparent 60%)` }} />
+                    
+                    <div className="flex items-center justify-between mb-3">
+                      <span className={`text-[10px] font-extrabold tracking-widest bg-gradient-to-r ${item.color} bg-clip-text text-transparent uppercase`}>
+                        STEP {item.step}
+                      </span>
+                      <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${item.color}`} />
+                    </div>
+                    <h3 className="text-lg font-bold text-slate-800 tracking-tight group-hover:text-violet-600 transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                      {item.desc}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
 
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
 
@@ -279,9 +315,9 @@ const Home = () => {
           </p>
 
           <div className="flex items-center gap-6 text-sm text-gray-500">
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-            <a href="#">Contact</a>
+            <Link to="/coming-soon">Privacy</Link>
+            <Link to="/coming-soon">Terms</Link>
+            <Link to="/coming-soon">Contact</Link>
           </div>
 
         </div>

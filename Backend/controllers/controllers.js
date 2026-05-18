@@ -54,36 +54,44 @@ try{
 export const userLogin=async(req,res,next)=>{
     try{
         const {email,password}=req.body;
-        const emailExist=await User.findOne({email:email.toLowerCase()});
-        if(!emailExist){
-        return errorResponse(res,"invalid email",null,400);
-    }
-       const isMatch=await bcrypt.compare(password,emailExist.password);
+        const input = email.trim();
+        
+        // Find user by either email or username (case-insensitive)
+        const userExist=await User.findOne({
+            $or: [
+                { email: input.toLowerCase() },
+                { username: { $regex: new RegExp("^" + input.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&") + "$", "i") } }
+            ]
+        });
 
-       if(emailExist && isMatch){
-       const token = jwt.sign(
-      { id: emailExist._id, username: emailExist.username },
-      process.env.JWT_SECRET,
-      { expiresIn: "7d" }
-    );
+        if(!userExist){
+            return errorResponse(res,"invalid email or username",null,400);
+        }
 
-    return successResponse(res,"Login successful",{
-      token,
-      user: {
-        id: emailExist._id,
-        username: emailExist.username,
-        email: emailExist.email,
-      },
-    })
-}   else{
-        return errorResponse(res,"invalid credentials",null,400);
-       }
+        const isMatch=await bcrypt.compare(password,userExist.password);
+
+        if(userExist && isMatch){
+            const token = jwt.sign(
+              { id: userExist._id, username: userExist.username },
+              process.env.JWT_SECRET,
+              { expiresIn: "7d" }
+            );
+
+            return successResponse(res,"Login successful",{
+              token,
+              user: {
+                id: userExist._id,
+                username: userExist.username,
+                email: userExist.email,
+              },
+            });
+        } else {
+            return errorResponse(res,"invalid credentials",null,400);
+        }
 
     }catch(error){
         next(error);
     }
-
-    
 }
 export const getProfile=async(req,res,next)=>{
     try{

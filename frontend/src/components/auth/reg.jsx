@@ -3,11 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import api from "../../api/api.jsx";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
-import { Mail, Lock, User, ArrowRight, Loader2 } from "lucide-react";
+import { Mail, Lock, User, ArrowRight, Loader2, Eye, EyeOff, Briefcase } from "lucide-react";
 
 const Register = () => {
     const [user, setUser] = useState({ email: "", username: "", password: "", confirm_password: "" });
     const [loading, setLoading] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
 
     const inputHandler = (e) => {
@@ -35,7 +37,15 @@ const Register = () => {
                 <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2850&q=80')] opacity-20 bg-cover bg-center"></div>
                 <div className="absolute inset-0 bg-gradient-to-br from-black via-black/90 to-transparent"></div>
                 <motion.div className="relative z-10 max-w-lg" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-                    <h1 className="text-5xl font-bold mb-6 tracking-tight">JobTracker.</h1>
+                    <div className="flex items-center gap-3 mb-8">
+                        <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-violet-600 to-indigo-600 text-white flex items-center justify-center shadow-[0_0_25px_rgba(124,58,237,0.5)]">
+                            <Briefcase size={24} className="text-white drop-shadow-[0_2px_10px_rgba(255,255,255,0.35)]" />
+                        </div>
+                        <span className="font-bold text-sm tracking-wider text-violet-300 uppercase">JobTracker</span>
+                    </div>
+                    <h1 className="text-5xl font-extrabold mb-6 tracking-tight bg-gradient-to-r from-white via-slate-100 to-violet-300 bg-clip-text text-transparent" style={{ textShadow: "0 0 30px rgba(139,92,246,0.6)" }}>
+                        JobTracker.
+                    </h1>
                     <p className="text-xl text-gray-300 leading-relaxed">
                         Join thousands of professionals organizing their job search with our intelligent platform.
                     </p>
@@ -73,7 +83,22 @@ const Register = () => {
                             <label className="block text-[14px] font-medium text-gray-900 mb-1.5">Password</label>
                             <div className="relative">
                                 <Lock size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
-                                <input type="password" name="password" value={user.password} onChange={inputHandler} className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-[15px] rounded-lg focus:ring-black focus:border-black block pl-10 p-2.5 transition-all outline-none" placeholder="••••••••" required />
+                                <input 
+                                    type={showPassword ? "text" : "password"} 
+                                    name="password" 
+                                    value={user.password} 
+                                    onChange={inputHandler} 
+                                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-[15px] rounded-lg focus:ring-black focus:border-black block pl-10 pr-10 p-2.5 transition-all outline-none" 
+                                    placeholder="••••••••" 
+                                    required 
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors bg-transparent border-0 p-0 focus:outline-none"
+                                >
+                                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
                             </div>
                         </div>
 
@@ -81,7 +106,22 @@ const Register = () => {
                             <label className="block text-[14px] font-medium text-gray-900 mb-1.5">Confirm Password</label>
                             <div className="relative">
                                 <Lock size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
-                                <input type="password" name="confirm_password" value={user.confirm_password} onChange={inputHandler} className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-[15px] rounded-lg focus:ring-black focus:border-black block pl-10 p-2.5 transition-all outline-none" placeholder="••••••••" required />
+                                <input 
+                                    type={showConfirmPassword ? "text" : "password"} 
+                                    name="confirm_password" 
+                                    value={user.confirm_password} 
+                                    onChange={inputHandler} 
+                                    className="w-full bg-gray-50 border border-gray-200 text-gray-900 text-[15px] rounded-lg focus:ring-black focus:border-black block pl-10 pr-10 p-2.5 transition-all outline-none" 
+                                    placeholder="••••••••" 
+                                    required 
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors bg-transparent border-0 p-0 focus:outline-none"
+                                >
+                                    {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                </button>
                             </div>
                         </div>
 
