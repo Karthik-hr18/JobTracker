@@ -15,32 +15,33 @@ const Home = () => {
 
       {/* Navbar */}
       <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="h-16 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="h-16 flex items-center justify-between gap-4">
 
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-black text-white mt-2.3 flex items-center justify-center">
-                <Briefcase size={20} />
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-black text-white flex items-center justify-center shrink-0">
+                <Briefcase size={18} className="sm:hidden" />
+                <Briefcase size={20} className="hidden sm:block" />
               </div>
 
               <div>
-                <h1 className="text-lg font-semibold mt-2.5 tracking-tight">
+                <h1 className="text-base sm:text-lg font-bold tracking-tight">
                   JobTracker
                 </h1>
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
               <Link
                 to="/userLogin"
-                className="px-4 py-2 text-sm font-semibold text-slate-700 hover:text-violet-600 hover:bg-slate-50 rounded-xl transition-all duration-150"
+                className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-slate-700 hover:text-violet-600 hover:bg-slate-50 rounded-xl transition-all duration-150 shrink-0"
               >
                 Login
               </Link>
 
               <Link
                 to="/userRegister"
-                className="px-4.5 py-2 text-sm font-semibold text-white bg-violet-600 hover:bg-violet-700 rounded-xl shadow-md shadow-violet-100 transition-all duration-150 active:scale-95"
+                className="px-3.5 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-semibold text-white bg-violet-600 hover:bg-violet-700 rounded-xl shadow-md shadow-violet-100 transition-all duration-150 active:scale-95 shrink-0"
               >
                 Get Started
               </Link>
@@ -99,14 +100,14 @@ const Home = () => {
               <div className="glass-panel shadow-2xl shadow-gray-200/40 border border-gray-200 overflow-hidden">
 
                 {/* Dashboard Mock Navbar */}
-                <div className="h-14 border-b border-gray-200 bg-white flex items-center justify-between px-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                    <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-                    <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                <div className="h-14 border-b border-gray-200 bg-white flex items-center justify-between px-4 sm:px-6">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="w-2.5 h-2.5 rounded-full bg-red-400"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-yellow-400"></div>
+                    <div className="w-2.5 h-2.5 rounded-full bg-green-400"></div>
                   </div>
 
-                  <div className="w-52 h-10 rounded-lg bg-gray-100"></div>
+                  <div className="w-32 sm:w-52 h-8 rounded-lg bg-gray-100"></div>
                 </div>
 
                 {/* Dashboard Preview */}
@@ -129,10 +130,10 @@ const Home = () => {
                   </div>
 
                   {/* Main */}
-                  <div className="lg:col-span-3 p-6 bg-[#fafafa]">
+                  <div className="lg:col-span-3 p-4 sm:p-6 bg-[#fafafa]">
 
                     {/* Stats */}
-                    <div className="grid md:grid-cols-4 gap-4">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
 
                       {[
                         "Applications",
@@ -142,36 +143,36 @@ const Home = () => {
                       ].map((item, index) => (
                         <div
                           key={index}
-                          className="glass-panel p-5"
+                          className="glass-panel p-4 sm:p-5"
                         >
-                          <div className="w-10 h-10 rounded-xl bg-gray-100 mb-4"></div>
+                          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gray-100 mb-3 sm:mb-4"></div>
 
-                          <div className="h-6 w-16 bg-gray-200 rounded mb-2"></div>
+                          <div className="h-5 w-12 sm:h-6 sm:w-16 bg-gray-200 rounded mb-2"></div>
 
-                          <div className="h-4 w-24 bg-gray-100 rounded"></div>
+                          <div className="h-3 w-16 sm:h-4 sm:w-24 bg-gray-100 rounded"></div>
                         </div>
                       ))}
                     </div>
 
                     {/* Job Cards */}
-                    <div className="mt-6 space-y-4">
+                    <div className="mt-6 space-y-3 sm:space-y-4">
                       {[1,2,3].map((card) => (
                         <div
                           key={card}
-                          className="glass-panel p-5 flex items-center justify-between"
+                          className="glass-panel p-4 sm:p-5 flex items-center justify-between"
                         >
-                          <div className="flex items-center gap-4">
+                          <div className="flex items-center gap-3 sm:gap-4 overflow-hidden">
 
-                            <div className="w-14 h-14 rounded-2xl bg-gray-100"></div>
+                            <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gray-100 shrink-0"></div>
 
-                            <div>
-                              <div className="h-5 w-48 bg-gray-200 rounded mb-2"></div>
+                            <div className="text-left overflow-hidden">
+                              <div className="h-4 w-28 sm:h-5 sm:w-48 bg-gray-200 rounded mb-2"></div>
 
-                              <div className="h-4 w-32 bg-gray-100 rounded"></div>
+                              <div className="h-3 w-20 sm:h-4 sm:w-32 bg-gray-100 rounded"></div>
                             </div>
                           </div>
 
-                          <div className="hidden md:block h-8 w-24 rounded-full bg-gray-100"></div>
+                          <div className="hidden md:block h-8 w-24 rounded-full bg-gray-100 shrink-0"></div>
                         </div>
                       ))}
                     </div>
@@ -245,7 +246,7 @@ const Home = () => {
       <section className="py-24">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
 
-          <div className="glass-panel p-10 md:p-16 text-center bg-black text-white border-black">
+          <div className="p-10 md:p-16 text-center bg-black text-white rounded-3xl border border-neutral-900 shadow-2xl">
 
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight">
               Start Managing Your Career Better
